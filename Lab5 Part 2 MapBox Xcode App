@@ -1,0 +1,47 @@
+//
+//  ViewController.swift
+//  MapboxLab5
+//
+//  Created by Austin Jennings on 3/10/18.
+//  Copyright © 2018 Austin Jennings. All rights reserved.
+//
+
+import UIKit
+import Mapbox
+
+class ViewController: UIViewController, MGLMapViewDelegate {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let mapView = MGLMapView(frame: view.bounds)
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        // set maps initial stye
+        mapView.styleURL = MGLStyle.darkStyleURL()
+       
+        // Set the delegate property of our map view to self since we only have 1
+        mapView.delegate = self
+        // Set the map’s center coordinate and zoom level to Tacoma
+        mapView.setCenter(CLLocationCoordinate2D(latitude: 47.2446, longitude: -122.4376), zoomLevel: 13, animated: false)
+        view.addSubview(mapView)
+        
+        // congfigure marker location and popup
+        let hello = MGLPointAnnotation()
+        hello.coordinate = CLLocationCoordinate2D(latitude: 47.2446, longitude: -122.4376)
+        hello.title = "We'll Miss You :("
+        hello.subtitle = "Best of luck in the Netherlands!"
+        
+        // Add marker to the map.
+        mapView.addAnnotation(hello)
+    }
+    
+    // Use the default marker.
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        return nil
+    }
+    
+    // Allow callout view to appear when an annotation is tapped.
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+}
+
